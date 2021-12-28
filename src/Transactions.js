@@ -39,12 +39,14 @@ const Transactions = (address) => {
                     setLoading(true);
                     const transactions = await axios.get(endpointTransactions)
                     setData(transactions.data.result);
+
                     setLoading(false);
                     setCurrentLenght(transactions.data.result.length);
 
 
                 } catch (e) {
                     setError("Error: Error in address, please try again or refresh page", e)
+                    setLoading(true)
                 }
             }
         }

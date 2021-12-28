@@ -12,6 +12,7 @@ function App() {
   const [getAddress, setGetAddres] = useState("");
   const [displayTransactions, setDisplayTransactions] = useState(false);
   const [value, setValue] = useState("");
+  const [error, setError] = useState("");
 
   const [currentPrice, setCurrentPrice] = useState({})
   const [balanceToken, setBalanceToken] = useState({});
@@ -41,27 +42,30 @@ function App() {
   }
 
 
+  const fetchTokenData = async () => {
+    try {
+      const tokenbalance = await axios.get(endpointTokenBalance)
+
+      setBalanceToken(tokenbalance.data);
+    } catch (e) {
+      setError("error: Invalid address", e)
+    }
+
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     setGetAddres(value);
     setDisplayTransactions(true);
-
+    fetchTokenData();
   }
 
   useEffect(() => {
 
-    const fetchTokenData = async () => {
-      const tokenbalance = await axios.get(endpointTokenBalance)
-      setBalanceToken(tokenbalance.data);
 
-    }
     const fetchTokenPrice = async () => {
       const price = await axios.get(endpointTokenPrice);
 
       setCurrentPrice(price.data.market_data.current_price);
-    }
-    if (value.length > 20) {
-      fetchTokenData();
     }
 
     fetchTokenPrice();
@@ -80,7 +84,7 @@ function App() {
 
       </form>
 
-
+      {error && <p className='error-msg'>hola{error}</p>}
       <div className="summary-wrap">
         <div>
           <p> RHT</p>

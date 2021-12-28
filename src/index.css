@@ -91,11 +91,11 @@ h4 {
 
 .summary-wrap {
   display: flex;
-  gap: 20px;
   border-radius: 1rem;
   padding: 20px;
   background-color: #142028;
   margin-top: 10px;
+  flex-direction: column;
 }
 
 .loading-logo {
