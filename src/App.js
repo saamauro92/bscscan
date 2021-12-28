@@ -94,6 +94,11 @@ function App() {
 
       {error && <p className='error-msg'>hola{error}</p>}
       <div className="summary-wrap">
+
+        <div>
+          <p>ACCOUNT</p>
+          <p>{getAddress && <>{getAddress.slice(0, 6) + "..." + getAddress.slice(getAddress.length - 8, getAddress.length)}</>}</p>
+        </div>
         <div>
           <p> RHT</p>
           <p>  {currentPrice && formatter.format(currentPrice.usd)}</p>

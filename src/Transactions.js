@@ -86,7 +86,7 @@ const Transactions = (address) => {
     return (
         <div >
 
-            <p className='subtitle'> Last transactions</p>
+            <p className='subtitle'> Last transactions </p>
             {loading == true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> :
                 <table className="styled-table" >
                     <tbody>
