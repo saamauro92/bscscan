@@ -3,7 +3,8 @@ import './App.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Transactions from './Transactions';
-import Home from './Home';
+
+
 
 
 
@@ -16,7 +17,7 @@ function App() {
   const [balanceToken, setBalanceToken] = useState({});
 
   const accountAddress = getAddress;
-  const apiToken = "BVTUJF2XJ4NWANPJ4CS1E2TEKYQEA67VAQ"
+  const apiToken = process.env.REACT_APP_API_KEY;
   const endpointTokenBalance = `https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xf1018c71eebe32dd85012ad413bab6b940d0d51e&address=${accountAddress}&tag=latest&apikey=${apiToken}`
   const endpointTokenPrice = "https://api.coingecko.com/api/v3/coins/reward-hunters-token?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
 
@@ -117,11 +118,6 @@ function App() {
 
       }
 
-      <div className="summary-wrapper">
-        <hr />
-
-        <p onClick={navigator.clipboard.writeText("0x0f707Bb48Be40f018FE33Af45D86454852D4D460")}> copy m </p>
-      </div>
     </div>
   );
 }

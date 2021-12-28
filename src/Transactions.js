@@ -7,20 +7,15 @@ import logo from './logo.svg';
 
 const Transactions = (address) => {
 
-
     const [data, setData] = useState({})
     const [error, setError] = useState("");
-    const apiToken = "BVTUJF2XJ4NWANPJ4CS1E2TEKYQEA67VAQ"
+    const apiToken = process.env.REACT_APP_API_KEY;
     const endpointTransactions = `https://api.bscscan.com/api?module=account&action=txlistinternal&address=${address.address}&startblock=0&endblock=99999999&page=1&offset=25&sort=desc&apikey=${apiToken}`
 
     const [currentLenght, setCurrentLenght] = useState(0)
     const previousLenght = usePrevious(currentLenght);
 
-
-
     /* audio */
-
-
     /* hook to get old value  */
     function usePrevious(value) {
         const ref = useRef();
