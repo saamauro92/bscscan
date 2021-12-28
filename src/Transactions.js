@@ -103,7 +103,7 @@ const Transactions = (address) => {
 
                             {index === 0 ? <td> <h4> {getTime(item.timeStamp)}</h4></td> : <td>{getTime(item.timeStamp)}</td>}
                             <td></td>
-                            {index === 0 ? <td> <h4> 0.{item.value} BNB</h4></td> : <td>0.{item.value} BNB </td>}
+                            {index === 0 ? <td> <h4> {item.value} BNB</h4></td> : <td>0.{item.value} BNB </td>}
                             <td></td>
                             {index === 0 ? <td> <h4> {item.blockNumber}</h4></td> : <td>{item.blockNumber}</td>}
 
