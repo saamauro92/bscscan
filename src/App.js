@@ -42,21 +42,13 @@ function App() {
   }
 
 
-  const fetchTokenData = async () => {
-    try {
-      const tokenbalance = await axios.get(endpointTokenBalance)
 
-      setBalanceToken(tokenbalance.data);
-    } catch (e) {
-      setError("error: Invalid address", e)
-    }
-
-  }
   const handleSubmit = (e) => {
     e.preventDefault();
     setGetAddres(value);
+
     setDisplayTransactions(true);
-    fetchTokenData();
+
   }
 
   useEffect(() => {
@@ -66,6 +58,21 @@ function App() {
       const price = await axios.get(endpointTokenPrice);
 
       setCurrentPrice(price.data.market_data.current_price);
+    }
+
+    const fetchTokenData = async () => {
+      try {
+        const tokenbalance = await axios.get(endpointTokenBalance)
+
+        setBalanceToken(tokenbalance.data);
+      } catch (e) {
+        setError("error: Invalid address", e)
+      }
+
+    }
+
+    if (value.length > 20) {
+      fetchTokenData();
     }
 
     fetchTokenPrice();
