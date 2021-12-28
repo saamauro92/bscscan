@@ -18,9 +18,9 @@ form {
   height: 3.75em;
   margin: 0;
   display: flex;
-
   align-content: center;
   position: relative;
+  width: 100%;
 }
 .search-bar {
   padding: 0.4375rem 35px 0.4375rem 28px !important;
@@ -58,7 +58,7 @@ form {
 }
 
 table {
-  max-width: 600px;
+  max-width: 340px;
   text-align: start;
   border-radius: 1rem;
   padding: 20px;
@@ -86,7 +86,7 @@ td {
 
 h4 {
   margin: 10px 0;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .summary-wrap {
@@ -96,6 +96,7 @@ h4 {
   padding: 20px;
   background-color: #142028;
   margin-top: 10px;
+  width: 100%;
 }
 
 .loading-logo {
