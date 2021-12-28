@@ -56,19 +56,40 @@ form {
   border-radius: 50%;
   transition: 0.3s;
 }
-
-table {
+/* TABLE */
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   width: 100%;
-  text-align: start;
-  border-radius: 1rem;
-  padding: 20px;
   background-color: #142028;
+  border-radius: 1em;
+  text-align: left;
 }
 
-tr,
-th,
-td {
-  text-align: start;
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #21313b;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #0f1920;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
 }
 
 .button:hover {

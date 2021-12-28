@@ -87,41 +87,42 @@ const Transactions = (address) => {
         <div >
 
             <p className='subtitle'> Last transactions</p>
-            {loading == true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> : <table >
-                <tbody>
-                    <tr>
+            {loading == true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> :
+                <table className="styled-table" >
+                    <tbody>
+                        <tr>
 
-                        <th></th>
-                        <th>time</th>
-                        <th></th>
-                        <th> value BNB </th>
-                        <th></th>
-                        <th>block</th>
-
-                    </tr>
-
-
-                    {data && data.length > 1 ? data.map((item, index) =>
-
-                        <tr key={1 + index} className={index === 0 ? "first-row" : ""}>
-                            <td ></td>
-
-                            {index === 0 ? <td> <h4> {getTime(item.timeStamp)}</h4></td> : <td>{getTime(item.timeStamp)}</td>}
-                            <td></td>
-                            {index === 0 ? <td> <h4> {item.value} </h4></td> : <td>0.{item.value}  </td>}
-                            <td></td>
-                            {index === 0 ? <td> <h4> {item.blockNumber}</h4></td> : <td>{item.blockNumber}</td>}
+                            <th></th>
+                            <th>time</th>
+                            <th></th>
+                            <th> value BNB </th>
+                            <th></th>
+                            <th>block</th>
 
                         </tr>
 
 
-                    ) : null
-                    }
+                        {data && data.length > 1 ? data.map((item, index) =>
+
+                            <tr key={1 + index} className={index === 0 ? "first-row" : ""}>
+                                <td ></td>
+
+                                {index === 0 ? <td> <h4> {getTime(item.timeStamp)}</h4></td> : <td>{getTime(item.timeStamp)}</td>}
+                                <td></td>
+                                {index === 0 ? <td> <h4> {item.value} </h4></td> : <td>0.{item.value}  </td>}
+                                <td></td>
+                                {index === 0 ? <td> <h4> {item.blockNumber}</h4></td> : <td>{item.blockNumber}</td>}
+
+                            </tr>
 
 
-                </tbody>
+                        ) : null
+                        }
 
-            </table>
+
+                    </tbody>
+
+                </table>
             }
 
             {error && <div className='error-msg'> {error} </div>}
