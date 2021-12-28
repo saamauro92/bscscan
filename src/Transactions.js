@@ -85,7 +85,7 @@ const Transactions = (address) => {
     return (
         <div >
 
-            <p className='subtitle'> Last transactions </p>
+            <p className='subtitle items'> Last transactions </p>
             {loading == true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> :
                 <table className="styled-table" >
                     <tbody>
@@ -95,8 +95,7 @@ const Transactions = (address) => {
                             <th>time</th>
                             <th></th>
                             <th> value BNB </th>
-                            <th></th>
-                            <th>block</th>
+
 
                         </tr>
 
@@ -110,8 +109,7 @@ const Transactions = (address) => {
                                     {index === 0 ? <td> <h4> {getTime(item.timeStamp)}</h4></td> : <td>{getTime(item.timeStamp)}</td>}
                                     <td></td>
                                     {index === 0 ? <td> <h4> {item.value} </h4></td> : <td>{item.value}  </td>}
-                                    <td></td>
-                                    {index === 0 ? <td> <h4> {item.blockNumber}</h4></td> : <td>{item.blockNumber}</td>}
+
 
                                 </tr>
 

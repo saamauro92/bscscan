@@ -10,7 +10,7 @@ import Transactions from './Transactions';
 
 function App() {
   const [getAddress, setGetAddres] = useState("");
-  const [displayTransactions, setDisplayTransactions] = useState(false);
+
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
@@ -45,9 +45,11 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+
     setGetAddres(value);
 
-    setDisplayTransactions(true);
+
 
   }
 
@@ -95,7 +97,7 @@ function App() {
           onChange={(e) => setValue(e.target.value)}
           className='search-bar'
           placeholder=' Introduce Address' />
-        <input type="submit" value=">" className='button' />
+        <input type="submit" value="Go" className='button' />
 
       </form>
 
@@ -103,22 +105,22 @@ function App() {
       <div className="summary-wrap">
 
         <div>
-          <p>ACCOUNT</p>
+          <p className='items'>Account</p>
           <p>{getAddress && <>{getAddress.slice(0, 6) + "..." + getAddress.slice(getAddress.length - 8, getAddress.length)}</>}</p>
         </div>
         <div>
-          <p> RHT</p>
+          <p className='items'> RHT</p>
           <p>  {currentPrice && formatter.format(currentPrice.usd)}</p>
 
         </div>
         <div>
-          <p>BALANCE:</p>
+          <p className='items'>Balance:</p>
           <p>  {balanceToken.result && balanceToken.result.slice(0, 9)}  </p>
 
         </div>
 
         <div>
-          <p> TOTAL USD:</p>
+          <p className='items'> Total USD:</p>
 
           {balanceToken.result && <p>  $ {balanceToken.result && currentPriceMath(currentPrice.usd, balanceToken.result)}</p>}
 
