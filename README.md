@@ -1,3 +1,0 @@
-# bscscan
-
-baisc bscscan
