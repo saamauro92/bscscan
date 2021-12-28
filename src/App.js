@@ -79,7 +79,15 @@ function App() {
 
       <form action="" onSubmit={handleSubmit}>
 
-        <input type="text" name="" value={value} onChange={(e) => setValue(e.target.value)} className='search-bar' placeholder=' Introduce Address' />
+        <input type="text"
+          name=""
+          maxLength={42}
+          minLength={6}
+          pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$|[a-zA-Z0-9\.]+"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className='search-bar'
+          placeholder=' Introduce Address' />
         <input type="submit" value=">" className='button' />
 
       </form>

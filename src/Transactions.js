@@ -7,7 +7,7 @@ import logo from './logo.svg';
 
 const Transactions = (address) => {
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState([])
     const [error, setError] = useState("");
     const apiToken = process.env.REACT_APP_API_KEY;
     const endpointTransactions = `https://api.bscscan.com/api?module=account&action=txlistinternal&address=${address.address}&startblock=0&endblock=99999999&page=1&offset=25&sort=desc&apikey=${apiToken}`
