@@ -43,7 +43,6 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setGetAddres(value);
     setDisplayTransactions(true);
 
@@ -62,10 +61,10 @@ function App() {
       setCurrentPrice(price.data.market_data.current_price);
     }
     if (value.length > 20) {
-      fetchTokenPrice();
       fetchTokenData();
     }
 
+    fetchTokenPrice();
   }, [endpointTokenBalance])
 
 
@@ -103,14 +102,7 @@ function App() {
 
       </div>
 
-
-
-
-
-
       <Transactions address={getAddress} />
-
-
 
 
     </div>
