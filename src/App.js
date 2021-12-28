@@ -44,12 +44,8 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     setGetAddres(value);
-
     setDisplayTransactions(true);
-
-
 
   }
 
@@ -111,12 +107,11 @@ function App() {
 
 
 
-      {displayTransactions &&
-        <Transactions address={getAddress} />
+
+      <Transactions address={getAddress} />
 
 
 
-      }
 
     </div>
   );

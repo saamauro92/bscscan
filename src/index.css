@@ -58,7 +58,7 @@ form {
 }
 
 table {
-  max-width: 340px;
+  width: 100%;
   text-align: start;
   border-radius: 1rem;
   padding: 20px;
@@ -96,7 +96,6 @@ h4 {
   padding: 20px;
   background-color: #142028;
   margin-top: 10px;
-  width: 100%;
 }
 
 .loading-logo {

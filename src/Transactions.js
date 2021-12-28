@@ -11,7 +11,7 @@ const Transactions = (address) => {
     const [error, setError] = useState("");
     const apiToken = process.env.REACT_APP_API_KEY;
     const endpointTransactions = `https://api.bscscan.com/api?module=account&action=txlistinternal&address=${address.address}&startblock=0&endblock=99999999&page=1&offset=25&sort=desc&apikey=${apiToken}`
-
+    const [loading, setLoading] = useState(false);
     const [currentLenght, setCurrentLenght] = useState(0)
     const previousLenght = usePrevious(currentLenght);
 
@@ -36,8 +36,10 @@ const Transactions = (address) => {
             if (address.address.length > 1) {
 
                 try {
+                    setLoading(true);
                     const transactions = await axios.get(endpointTransactions)
                     setData(transactions.data.result);
+                    setLoading(false);
                     setCurrentLenght(transactions.data.result.length);
 
 
@@ -81,8 +83,9 @@ const Transactions = (address) => {
 
     return (
         <div >
+
             <p className='subtitle'> Last transactions</p>
-            <table >
+            {loading == true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> : <table >
                 <tbody>
                     <tr>
 
@@ -110,11 +113,15 @@ const Transactions = (address) => {
                         </tr>
 
 
-                    ) : <div className='loading-logo'>  <img src={logo} className="App-logo" alt="logo" />loading...     </div>}
+                    ) : null
+                    }
+
 
                 </tbody>
 
             </table>
+            }
+
             {error && <div className='error-msg'> {error} </div>}
         </div >
     )
