@@ -150,9 +150,8 @@ h4 {
   .styled-table td {
     padding: 5px 0px;
     width: 0px;
-    text-align: center;
   }
   .styled-table th {
-    padding: 5px;
+    padding: 5px 0;
   }
 }
