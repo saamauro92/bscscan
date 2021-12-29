@@ -92,9 +92,9 @@ const Transactions = (address) => {
                         <tr>
 
                             <th></th>
-                            <th>time</th>
+                            <th>Date</th>
                             <th></th>
-                            <th> value BNB </th>
+                            <th> Value BNB </th>
 
 
                         </tr>

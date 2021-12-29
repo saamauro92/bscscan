@@ -137,17 +137,22 @@ h4 {
   body {
     margin: 0;
   }
-  table {
-    padding: 5px;
+
+  .subtitle {
+    padding: 5px 10px;
   }
 
   .summary-wrap {
-    padding: 5px;
+    padding: 5px 10px;
   }
 
   .styled-table th,
   .styled-table td {
     padding: 5px 0px;
     width: 0px;
+    text-align: center;
+  }
+  .styled-table th {
+    padding: 5px;
   }
 }
