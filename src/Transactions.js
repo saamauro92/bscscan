@@ -7,6 +7,7 @@ import logo from './logo.svg';
 
 const Transactions = (address) => {
 
+
     const [data, setData] = useState([]);
     const [error, setError] = useState("");
     const apiToken = process.env.REACT_APP_API_KEY;
@@ -85,8 +86,9 @@ const Transactions = (address) => {
     return (
         <div >
 
+
             <p className='subtitle items'> Last transactions </p>
-            {loading == true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> :
+            {loading === true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> :
                 <table className="styled-table" >
                     <tbody>
                         <tr>
