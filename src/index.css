@@ -133,6 +133,13 @@ h4 {
   font-weight: 700;
 }
 
+.wrapper {
+  /*   display: flex; */
+}
+.wrapper > p {
+  /*   flex: auto; */
+}
+
 @media only screen and (max-width: 467px) {
   body {
     margin: 0;

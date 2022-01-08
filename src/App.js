@@ -18,12 +18,12 @@ function App() {
   /* Bnb */
   const [bnbBalance, setBnbBalance] = useState("");
   const [bnbCurrentPrice, setBnbCurrentPrice] = useState("");
+  /* Internal Transactions */
+  const [txn, setTxn] = useState([]);
 
-  const accountAddress = getAddress;
+
   const apiToken = process.env.REACT_APP_API_KEY;
-  const endpointTokenBalance = `https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xf1018c71eebe32dd85012ad413bab6b940d0d51e&address=${accountAddress}&tag=latest&apikey=${apiToken}`
   const endpointTokenPrice = "https://api.coingecko.com/api/v3/coins/reward-hunters-token?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
-  const endpointBnbBalance = `https://api.bscscan.com/api?module=account&action=balance&address=${accountAddress}&apikey=${apiToken}`
   const endpointBnbPrice = `https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=${apiToken}`
 
   const formatter = new Intl.NumberFormat('en-us', {
@@ -45,13 +45,65 @@ function App() {
 
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setGetAddres(value);
+
+    fetchBnbAccountBalance(value);
+    fetchTokenData(value);
+    fetchTransactions(value);
+
+
   }
 
-  useEffect(() => {
 
+  const fetchTokenData = async (id) => {
+    try {
+      const tokenbalance = await axios.get(`https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xf1018c71eebe32dd85012ad413bab6b940d0d51e&address=${id}&tag=latest&apikey=${apiToken}`)
+
+      return setBalanceToken(tokenbalance.data)
+
+    } catch (e) {
+      setError(e)
+    }
+
+  }
+
+  const fetchBnbAccountBalance = async (id) => {
+    try {
+      const bnbAccountBalance = await axios.get(`https://api.bscscan.com/api?module=account&action=balance&address=${id}&apikey=${apiToken}`)
+
+      return setBnbBalance(bnbAccountBalance.data.result)
+
+    } catch (e) {
+      setError(e);
+    }
+  }
+
+
+
+  const fetchTransactions = async (id) => {
+    if (id.length > 1) {
+
+      try {
+        const transactions = await axios.get(`https://api.bscscan.com/api?module=account&action=txlistinternal&address=${id}&startblock=0&endblock=99999999&page=1&offset=10000&sort=desc&apikey=${apiToken}`)
+        setTxn(transactions.data.result);
+
+        /*       setLoading(false); */
+        /*           setCurrentLenght(transactions.data.result.length); */
+        /*            setArray(transactions.data.result.length) */
+
+
+      } catch (e) {
+        setError(e);
+      }
+    }
+  }
+
+
+
+
+  useEffect(() => {
 
     const fetchTokenPrice = async () => {
       const price = await axios.get(endpointTokenPrice);
@@ -68,36 +120,7 @@ function App() {
     }
     fetchBnbPrice();
 
-
-    const fetchTokenData = async () => {
-      try {
-        const tokenbalance = await axios.get(endpointTokenBalance)
-
-        setBalanceToken(tokenbalance.data);
-      } catch (e) {
-        setError("error: Invalid address", e)
-      }
-
-    }
-
-
-    const fetchBnbAccountBalance = async () => {
-      try {
-        const bnbAccountBalance = await axios.get(endpointBnbBalance)
-        setBnbBalance(bnbAccountBalance.data.result)
-      } catch (e) {
-        setError("error fetching bnb balance", e);
-      }
-    }
-    fetchBnbAccountBalance();
-
-
-    if (value.length > 20) {
-      fetchTokenData();
-
-    }
-
-  }, [endpointTokenBalance])
+  }, [])
 
 
   return (
@@ -105,6 +128,7 @@ function App() {
 
 
     <div className="App">
+      <h3>Check your Balance {"&"} Last Rewards!</h3>
 
       <form action="" onSubmit={handleSubmit}>
 
@@ -116,31 +140,38 @@ function App() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className='search-bar'
-          placeholder=' Introduce Address' />
+          placeholder=' Address' />
         <input type="submit" value="Go" className='button' />
 
       </form>
 
-      {error && <p className='error-msg'>hola{error}</p>}
+      {error && <p className='error-msg'>{error}</p>}
+
       <div className="summary-wrap">
+
+
+        <div className='wrapper'>
+          <p className='items'> RHT Price</p>
+          <p>  {currentPrice && formatter.format(currentPrice.usd)}</p>
+          <p className='items'> BNB Price</p>
+          <p>  {bnbCurrentPrice && formatter.format(bnbCurrentPrice.result.ethusd)}</p>
+
+        </div>
 
         <div>
           <p className='items'>Account</p>
           <p>{getAddress && <>{getAddress.slice(0, 6) + "..." + getAddress.slice(getAddress.length - 8, getAddress.length)}</>}</p>
         </div>
         <div>
-          <p className='items'> RHT Current Price</p>
-          <p>  {currentPrice && formatter.format(currentPrice.usd)}</p>
-          <p className='items'>RHT Balance:</p>
-          <p>  {balanceToken.result && balanceToken.result.slice(0, 9)}  </p>
+          <div className='wrapper'>
 
-        </div>
-        <div>
-          <p className='items'> BNB Current Price</p>
-          <p>  {bnbCurrentPrice && formatter.format(bnbCurrentPrice.result.ethusd)}</p>
-          <p className='items'>BNB Balance:</p>
-          <p>  {bnbBalance && bnbBalance}  ({bnbBalance && currentPriceMath(bnbCurrentPrice.result.ethusd, bnbBalance)})</p>
+            <p className='items'>RHT Balance:</p>
+            <p>  {balanceToken.result && balanceToken.result.slice(0, 9)}  </p>
 
+
+            <p className='items'>BNB Balance:</p>
+            <p>  {bnbBalance && bnbBalance}  ({bnbBalance && currentPriceMath(bnbCurrentPrice.result.ethusd, bnbBalance)})</p>
+          </div>
         </div>
 
         <div>
@@ -152,8 +183,7 @@ function App() {
 
       </div>
 
-
-      <Transactions address={getAddress} />
+      <Transactions txn={txn} />
 
 
 

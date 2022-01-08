@@ -1,81 +1,15 @@
 import React from 'react'
-import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
-import ring from "./assets/ring.wav"
+import { useState } from 'react';
 import logo from './logo.svg';
 
 
-const Transactions = (address) => {
+const Transactions = (data) => {
+    const { txn } = data;
 
 
-    const [data, setData] = useState([]);
-    const [error, setError] = useState("");
-    const apiToken = process.env.REACT_APP_API_KEY;
-    const endpointTransactions = `https://api.bscscan.com/api?module=account&action=txlistinternal&address=${address.address}&startblock=0&endblock=99999999&page=1&offset=25&sort=desc&apikey=${apiToken}`
     const [loading, setLoading] = useState(false);
-    const [currentLenght, setCurrentLenght] = useState(0)
-    const previousLenght = usePrevious(currentLenght);
-
-    /* audio */
-    /* hook to get old value  */
-    function usePrevious(value) {
-        const ref = useRef();
-
-        useEffect(() => {
-            ref.current = value;
-
-        }, [value])
-
-        return ref.current;
-    }
-
-
-
-    useEffect(() => {
-
-        const fetchTransactions = async () => {
-            if (address.address.length > 1) {
-
-                try {
-                    setLoading(true);
-                    const transactions = await axios.get(endpointTransactions)
-                    setData(transactions.data.result);
-                    setLoading(false);
-                    setCurrentLenght(transactions.data.result.length);
-
-
-                } catch (e) {
-                    setError("Error: Error in address, please try again or refresh page", e)
-                    setLoading(true)
-                }
-            }
-        }
-
-
-        fetchTransactions();
-
-        setInterval(() => {
-            fetchTransactions();
-            alertOnUpdate();
-
-
-        }, 10 * 60 * 1000);
-
-    }, [address])
-
-
-
-    function alertOnUpdate() {
-
-        if (currentLenght > previousLenght) {
-
-            const ringNotification = new Audio(ring);
-            ringNotification.play();
-        } else return null;
-
-
-    }
-
+    /*     const [currentLenght, setCurrentLenght] = useState(0)
+        const previousLenght = usePrevious(currentLenght); */
 
 
     const getTime = (prop) => {
@@ -85,7 +19,7 @@ const Transactions = (address) => {
 
     return (
         <div >
-
+            <p>A total of {txn.length ? txn.length : '0'} internal transactions found  </p>
 
             <p className='subtitle items'> Last transactions </p>
             {loading === true ? <div> <img src={logo} className="App-logo" alt="logo" />loading...     </div> :
@@ -103,7 +37,7 @@ const Transactions = (address) => {
 
                         {
 
-                            data && data.length > 1 ? data.map((item, index) =>
+                            data.txn && data.txn.length > 1 ? data.txn.map((item, index) =>
 
                                 <tr key={1 + index} className={index === 0 ? "first-row" : ""}>
                                     <td ></td>
@@ -125,7 +59,7 @@ const Transactions = (address) => {
                 </table>
             }
 
-            {error && <div className='error-msg'> {error} </div>}
+
         </div >
     )
 }
