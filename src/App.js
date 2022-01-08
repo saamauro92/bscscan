@@ -21,6 +21,8 @@ function App() {
   /* Internal Transactions */
   const [txn, setTxn] = useState([]);
 
+  const [boolean, setBoolean] = useState(false);
+
 
   const apiToken = process.env.REACT_APP_API_KEY;
   const endpointTokenPrice = "https://api.coingecko.com/api/v3/coins/reward-hunters-token?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
@@ -37,9 +39,6 @@ function App() {
 
   const currentPriceMath = (a, b) => {
     const result = a * b.slice(0, 15)
-
-    const toReturn = formatter.format(result);
-
     return result;
   }
 
@@ -86,8 +85,10 @@ function App() {
     if (id.length > 1) {
 
       try {
+        setBoolean(true);
         const transactions = await axios.get(`https://api.bscscan.com/api?module=account&action=txlistinternal&address=${id}&startblock=0&endblock=99999999&page=1&offset=10000&sort=desc&apikey=${apiToken}`)
         setTxn(transactions.data.result);
+        setBoolean(false);
 
         /*       setLoading(false); */
         /*           setCurrentLenght(transactions.data.result.length); */
@@ -183,7 +184,7 @@ function App() {
 
       </div>
 
-      <Transactions txn={txn} />
+      <Transactions txn={txn} boolean={boolean} />
 
 
 
