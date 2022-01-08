@@ -46,7 +46,7 @@ const Transactions = (data, boolean) => {
 
                         {
 
-                            data.txn && data.txn.length === 1 ? data.txn.map((item, index) =>
+                            data.txn && data.txn.length > 1 ? data.txn.map((item, index) =>
 
                                 <tr key={1 + index} className={index === 0 ? "first-row" : ""}>
                                     <td ></td>
